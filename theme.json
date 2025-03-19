@@ -1,52 +1,47 @@
 {
-  "name": "SpaceTechHub",
-  "variant": "default",
-  "primary": "0 94 184",
-  "cssVars": {
-    "light": {
-      "background": "255 255 255",
-      "foreground": "20 20 20",
-      "muted": "240 240 240",
-      "mutedForeground": "140 140 140",
-      "border": "240 240 240",
-      "input": "240 240 240",
-      "primary": "0 94 184",
-      "primaryForeground": "255 255 255",
-      "secondary": "44 45 61",
-      "secondaryForeground": "255 255 255",
-      "accent": "244 245 246",
-      "accentForeground": "15 15 15",
-      "destructive": "224 71 76",
-      "destructiveForeground": "255 255 255",
-      "ring": "0 94 184",
-      "radius": "0.5rem"
+  "primary": "0 94 184", 
+  "appearance": {
+    "accent": {
+      "default": "196 168 0",
+      "foreground": "0 0 0"
     },
-    "dark": {
-      "background": "11 13 24",
-      "foreground": "255 255 255",
-      "muted": "44 45 61",
-      "mutedForeground": "150 160 175",
-      "border": "44 45 61",
-      "input": "44 45 61",
-      "primary": "0 142 255",
-      "primaryForeground": "255 255 255",
-      "secondary": "0 94 184",
-      "secondaryForeground": "255 255 255",
-      "accent": "44 45 61",
-      "accentForeground": "255 255 255",
-      "destructive": "235 87 87",
-      "destructiveForeground": "255 255 255",
-      "ring": "0 94 184",
-      "radius": "0.5rem"
+    "background": {
+      "default": "255 255 255"
+    },
+    "foreground": {
+      "default": "0 0 0"
+    },
+    "radius": {
+      "s": "0.125rem",
+      "m": "0.25rem",
+      "l": "0.5rem",
+      "xl": "1rem"
     }
   },
-  "extend": {
-    "colors": {
-      "deep-blue": "#0b0d18",
-      "satellite-blue": "#008EFF",
-      "stellar-yellow": "#FFBD3D",
-      "space-black": "#15151F",
-      "terminal-green": "#0EF70E"
+  "variant": [
+    {
+      "name": "default",
+      "description": "Default",
+      "appearance": {
+        "background": {
+          "default": "255 255 255"
+        },
+        "foreground": {
+          "default": "0 0 0"
+        }
+      }
+    },
+    {
+      "name": "dark",
+      "description": "Dark",
+      "appearance": {
+        "background": {
+          "default": "10 15 25"
+        },
+        "foreground": {
+          "default": "255 255 255"
+        }
+      }
     }
-  }
+  ]
 }
