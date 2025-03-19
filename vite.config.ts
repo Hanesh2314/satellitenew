@@ -7,6 +7,9 @@ export default defineConfig({
   root: './client',  // Set the root directory to where your index.html is
   build: {
     outDir: '../client/dist',  // Output relative to the project root
+    rollupOptions: {
+      external: ['wouter']  // Add wouter to external dependencies
+    }
   },
   plugins: [react()],
   resolve: {
