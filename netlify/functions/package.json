@@ -1,0 +1,10 @@
+{
+  "name": "spacetechhub-serverless-functions",
+  "version": "1.0.0",
+  "description": "Serverless functions for SpaceTechHub",
+  "type": "module",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "dependencies": {}
+}
