@@ -1,6 +1,6 @@
 [build]
   publish = "client/dist"
-  command = "npm run build"
+  command = "npm run build && npm run db:push"
 
 [[redirects]]
   from = "/api/*"
@@ -14,3 +14,7 @@
 
 [build.environment]
   NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions/"
+  node_bundler = "esbuild"
