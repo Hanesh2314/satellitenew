@@ -4,10 +4,14 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root: './client',  // Set the root directory to where your index.html is
+  build: {
+    outDir: '../client/dist',  // Output relative to the project root
+  },
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './client/src'),
       '@client': path.resolve(__dirname, './client/src'),
       '@server': path.resolve(__dirname, './server'),
       '@shared': path.resolve(__dirname, './shared'),
