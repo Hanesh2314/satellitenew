@@ -9,15 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { getDepartmentById } from "@/lib/satelliteUtils";
-import { useCustomToast } from "@/hooks/useToast";
-import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   contactInfo: z.string().min(5, "Contact information is required")
     .refine(
       (value) => {
-        // Basic validation for email or phone number
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
         return emailRegex.test(value) || phoneRegex.test(value);
@@ -36,7 +34,7 @@ type FormValues = z.infer<typeof formSchema>;
 const ApplicationFormPage = () => {
   const { department } = useParams<{ department: string }>();
   const [, navigate] = useLocation();
-  const toast = useCustomToast();
+  const { toast } = useToast();
   const departmentInfo = department ? getDepartmentById(department) : null;
 
   const form = useForm<FormValues>({
@@ -54,18 +52,29 @@ const ApplicationFormPage = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      await apiRequest.post("/applications", data);
+      const response = await fetch('/api/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit application');
+      }
+
       toast({
         title: "Application Submitted!",
         description: "We'll review your application and get back to you soon.",
-        variant: "success"
       });
+      
       navigate("/confirmation");
     } catch (error) {
       toast({
         title: "Submission Failed",
         description: "Please try again later.",
-        variant: "error"
+        variant: "destructive"
       });
     }
   };
@@ -87,6 +96,20 @@ const ApplicationFormPage = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {/* Form fields implementation */}
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* Add other form fields similarly */}
       </form>
     </Form>
   );
