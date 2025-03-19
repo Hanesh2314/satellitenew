@@ -1,37 +1,55 @@
-import { DatabaseStorage } from '../../server/storage';
+import { users, type User, type InsertUser, applications, type Application, type InsertApplication } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
-const storage = new DatabaseStorage();
+export interface AboutUs {
+  id: string;
+  content: string;
+  updatedAt: string;
+}
 
-export const handler = async function(event) {
-  const httpMethod = event.httpMethod;
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-  };
+export interface IStorage {
+  getUser(id: number): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+  
+  createApplication(application: InsertApplication): Promise<Application>;
+  getApplications(): Promise<Application[]>;
+  getApplicationById(id: number): Promise<Application | undefined>;
+  
+  getAboutUs(): Promise<AboutUs | undefined>;
+  updateAboutUs(content: string): Promise<AboutUs>;
+}
 
-  try {
-    // Handle OPTIONS (CORS preflight)
-    if (httpMethod === 'OPTIONS') {
-      return { statusCode: 200, headers, body: '' };
-    }
-
-    if (httpMethod === 'GET') {
-      // Fetch stored applications from PostgreSQL
-      const applications = await storage.getApplications();
-      return { statusCode: 200, headers, body: JSON.stringify(applications) };
-    }
-
-    if (httpMethod === 'POST') {
-      // Parse incoming form submission
-      const body = JSON.parse(event.body);
-      const newApplication = await storage.createApplication(body);
-      return { statusCode: 201, headers, body: JSON.stringify(newApplication) };
-    }
-
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request method' }) };
-  } catch (error) {
-    console.error('Error handling request:', error);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Internal Server Error' }) };
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
-};
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const [newUser] = await db.insert(users).values(user).returning();
+    return newUser;
+  }
+
+  async createApplication(application: InsertApplication): Promise<Application> {
+    const [newApplication] = await db.insert(applications).values(application).returning();
+    return newApplication;
+  }
+
+  async getApplications(): Promise<Application[]> {
+    return await db.select().from(applications);
+  }
+
+  async getApplicationById(id: number): Promise<Application | undefined> {
+    const [application] = await db.select().from(applications).where(eq(applications.id, id));
+    return application || undefined;
+  }
+}
+
+export const storage = new DatabaseStorage();
