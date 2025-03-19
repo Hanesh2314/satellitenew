@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { getDepartmentById } from "@/lib/satelliteUtils";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/toast";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -34,7 +34,6 @@ type FormValues = z.infer<typeof formSchema>;
 const ApplicationFormPage = () => {
   const { department } = useParams<{ department: string }>();
   const [, navigate] = useLocation();
-  const { toast } = useToast();
   const departmentInfo = department ? getDepartmentById(department) : null;
 
   const form = useForm<FormValues>({
@@ -67,6 +66,7 @@ const ApplicationFormPage = () => {
       toast({
         title: "Application Submitted!",
         description: "We'll review your application and get back to you soon.",
+        variant: "default"
       });
       
       navigate("/confirmation");
@@ -95,7 +95,6 @@ const ApplicationFormPage = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Form fields implementation */}
         <FormField
           control={form.control}
           name="name"
