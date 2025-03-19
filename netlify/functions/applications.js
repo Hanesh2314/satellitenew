@@ -1,4 +1,4 @@
-import { storage } from "../server/storage";
+import { storage } from "./lib/storage";
 
 export const handler = async function(event) {
   const path = event.path;
@@ -37,9 +37,17 @@ export const handler = async function(event) {
       return { statusCode: 201, headers, body: JSON.stringify(newApplication) };
     }
 
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request method' }) };
+    return { 
+      statusCode: 405, 
+      headers, 
+      body: JSON.stringify({ error: 'Method not allowed' }) 
+    };
   } catch (error) {
-    console.error('Error handling request:', error);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Internal Server Error' }) };
+    console.error('Error:', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Internal server error', details: error.message })
+    };
   }
 };
