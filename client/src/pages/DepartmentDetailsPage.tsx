@@ -5,6 +5,27 @@ import { Button } from "@/components/ui/button";
 import DepartmentDetails from "@/components/DepartmentDetails";
 import { ArrowLeft } from "lucide-react";
 
+// Define interfaces for the department types
+interface Department {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+interface DepartmentDetail {
+  title: string;
+  description: string;
+  requirements?: string[];
+  responsibilities?: string[];
+}
+
+// Define props interface for the DepartmentDetails component
+interface DepartmentDetailsProps {
+  details: DepartmentDetail;
+  basicInfo: Department;
+  onApply: () => void;
+}
+
 const DepartmentDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const [, navigate] = useLocation();
@@ -36,11 +57,13 @@ const DepartmentDetailsPage = () => {
   }
 
   return (
-    <DepartmentDetails
-      details={departmentDetails}
-      basicInfo={departmentBasic}
-      onApply={handleApply}
-    />
+    <div className="min-h-screen relative z-10">
+      <DepartmentDetails 
+        details={departmentDetails} 
+        basicInfo={departmentBasic} 
+        onApply={handleApply}
+      />
+    </div>
   );
 };
 
