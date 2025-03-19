@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -34,10 +34,10 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const ApplicationFormPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const { department } = useParams<{ department: string }>();
+  const [, navigate] = useLocation();
   const toast = useCustomToast();
-  const department = id ? getDepartmentById(id) : null;
+  const departmentInfo = department ? getDepartmentById(department) : null;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -47,7 +47,7 @@ const ApplicationFormPage = () => {
       branch: "",
       year: "",
       experience: "",
-      department: id || "",
+      department: department || "",
       resumeFileName: ""
     }
   });
@@ -70,7 +70,7 @@ const ApplicationFormPage = () => {
     }
   };
 
-  if (!department) {
+  if (!departmentInfo) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
