@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import InteractiveSatellite from "@/components/InteractiveSatellite";
 import { departments } from "@/lib/satelliteUtils";
 import { getDepartmentDetails } from "@/lib/departmentDetails";
@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } fr
 import { Button } from "@/components/ui/button";
 
 const DepartmentSelectionPage = () => {
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
 
