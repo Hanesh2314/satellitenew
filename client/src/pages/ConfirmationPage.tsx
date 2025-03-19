@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 
 const ConfirmationPage = () => {
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   const handleConfirm = useCallback(() => {
     navigate("/departments");
