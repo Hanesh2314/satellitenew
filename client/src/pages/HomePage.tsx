@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import Satellite3D from "@/components/Satellite3D";
 import AboutUsEditor from "@/components/AboutUsEditor";
 import StarBackground from "@/components/StarBackground";
@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
   const [glowIntensity, setGlowIntensity] = useState(1);
   
   // Animation effect for the button glow
@@ -35,6 +35,30 @@ const HomePage = () => {
             <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
               Join our mission to design and build cutting-edge satellite technology
             </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Button
+              onClick={handleJoinTeam}
+              className="bg-stellar-blue hover:bg-stellar-blue/90 text-white px-8 py-3 rounded-full text-lg"
+              style={{
+                boxShadow: `0 0 ${glowIntensity * 20}px ${glowIntensity * 10}px rgba(66, 153, 225, 0.6)`
+              }}
+            >
+              Join Our Team
+            </Button>
+          </motion.div>
+
+          <div className="mt-12 w-full max-w-4xl">
+            <Satellite3D />
+          </div>
+
+          <div className="mt-16">
+            <AboutUsEditor />
           </div>
         </div>
       </div>
