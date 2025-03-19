@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from "wouter";
+import { useParams, useNavigate } from "react-router-dom";
 import { getDepartmentDetails } from "@/lib/departmentDetails";
 import { getDepartmentById } from "@/lib/satelliteUtils";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 
 const DepartmentDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [, navigate] = useLocation();
+  const navigate = useNavigate();
   
   const departmentDetails = id ? getDepartmentDetails(id) : null;
   const departmentBasic = id ? getDepartmentById(id) : null;
@@ -34,43 +34,13 @@ const DepartmentDetailsPage = () => {
       </div>
     );
   }
-  
+
   return (
-    <div className="min-h-screen px-4 py-12 relative z-10">
-      <div className="container mx-auto max-w-4xl">
-        <div className="mb-6">
-          <Button 
-            onClick={() => navigate("/departments")}
-            variant="outline"
-            className="mb-6 text-satellite-blue border-satellite-blue hover:bg-satellite-blue hover:text-white transition-all"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Departments
-          </Button>
-        </div>
-        
-        <DepartmentDetails 
-          id={id}
-          title={departmentBasic.name}
-          color={departmentBasic.color}
-          description={departmentDetails.description}
-          responsibilities={departmentDetails.responsibilities}
-          skills={departmentDetails.skills}
-          qualifications={departmentDetails.qualifications}
-          projects={departmentDetails.projects}
-        />
-        
-        <div className="mt-8 flex justify-center">
-          <Button
-            onClick={handleApply}
-            className="bg-stellar-yellow text-deep-blue hover:bg-yellow-400 rounded-full px-8 py-3 font-bold text-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105"
-            size="lg"
-          >
-            Apply to Join This Department
-            <span className="ml-2">🚀</span>
-          </Button>
-        </div>
-      </div>
-    </div>
+    <DepartmentDetails 
+      details={departmentDetails} 
+      basic={departmentBasic} 
+      onApply={handleApply}
+    />
   );
 };
 
