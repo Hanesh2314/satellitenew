@@ -8,8 +8,8 @@ interface Department {
   color: number;
 }
 
-interface SatelliteMesh extends THREE.Mesh {
-  material: THREE.Material;
+interface CustomMesh extends THREE.Mesh {
+  material: THREE.MeshPhongMaterial;
 }
 
 const departments: Department[] = [
@@ -41,7 +41,7 @@ const departments: Department[] = [
 
 export function InteractiveSatellite() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const meshRefs = useRef<Record<string, SatelliteMesh>>({});
+  const meshRefs = useRef<Record<string, CustomMesh>>({});
   const [scene] = useState(new THREE.Scene());
   const [camera] = useState(new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000));
   const [renderer] = useState(new THREE.WebGLRenderer({ antialias: true }));
@@ -50,29 +50,25 @@ export function InteractiveSatellite() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Setup
     renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.domElement);
     camera.position.z = 5;
 
-    // Create departments
     departments.forEach((dept) => {
       const geometry = new THREE.BoxGeometry(1, 1, 1);
       const material = new THREE.MeshPhongMaterial({ color: dept.color });
-      const mesh = new THREE.Mesh(geometry, material) as SatelliteMesh;
+      const mesh = new THREE.Mesh(geometry, material) as CustomMesh;
       mesh.position.set(dept.position.x, dept.position.y, dept.position.z);
       meshRefs.current[dept.id] = mesh;
       scene.add(mesh);
     });
 
-    // Add lights
     const ambientLight = new THREE.AmbientLight(0x404040);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(1, 1, 1);
     scene.add(ambientLight);
     scene.add(directionalLight);
 
-    // Animation
     function animate() {
       requestAnimationFrame(animate);
       Object.values(meshRefs.current).forEach((mesh) => {
@@ -83,7 +79,6 @@ export function InteractiveSatellite() {
     }
     animate();
 
-    // Cleanup
     return () => {
       if (containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
@@ -105,7 +100,7 @@ export function InteractiveSatellite() {
         const intersects = raycaster.intersectObjects(Object.values(meshRefs.current));
         
         if (intersects.length > 0) {
-          const hoveredMesh = intersects[0].object as SatelliteMesh;
+          const hoveredMesh = intersects[0].object as CustomMesh;
           const department = departments.find(
             dept => meshRefs.current[dept.id] === hoveredMesh
           );
