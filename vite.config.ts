@@ -6,10 +6,7 @@ import path from 'path';
 export default defineConfig({
   root: './client',  // Set the root directory to where your index.html is
   build: {
-    outDir: '../client/dist',  // Output relative to the project root
-    rollupOptions: {
-      external: ['wouter', 'three']  // Add both wouter and three to external dependencies
-    }
+    outDir: '../client/dist'  // Output relative to the project root
   },
   plugins: [react()],
   resolve: {
