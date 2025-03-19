@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "wouter";
 import { getDepartmentDetails } from "@/lib/departmentDetails";
 import { getDepartmentById } from "@/lib/satelliteUtils";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 
 const DepartmentDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
   
   const departmentDetails = id ? getDepartmentDetails(id) : null;
   const departmentBasic = id ? getDepartmentById(id) : null;
@@ -36,9 +36,9 @@ const DepartmentDetailsPage = () => {
   }
 
   return (
-    <DepartmentDetails 
-      details={departmentDetails} 
-      basic={departmentBasic} 
+    <DepartmentDetails
+      details={departmentDetails}
+      basicInfo={departmentBasic}
       onApply={handleApply}
     />
   );
