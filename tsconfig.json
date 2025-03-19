@@ -18,12 +18,9 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./client/src/*"],
-      "@client/*": ["./client/src/*"],
-      "@server/*": ["./server/*"],
-      "@shared/*": ["./shared/*"]
+      "@/*": ["./client/src/*"]
     }
   },
   "include": ["client/src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./client/tsconfig.node.json" }]
 }
