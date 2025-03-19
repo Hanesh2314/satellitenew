@@ -1,6 +1,6 @@
 [build]
   publish = "client/dist"
-  command = "npm install drizzle-zod && npm run build && npm run db:push"
+  command = "npm install drizzle-zod --force && npm run build && npm run db:push"
 
 [[redirects]]
   from = "/api/*"
