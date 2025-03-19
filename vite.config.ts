@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     outDir: '../client/dist',  // Output relative to the project root
     rollupOptions: {
-      external: ['wouter']  // Add wouter to external dependencies
+      external: ['wouter', 'three']  // Add both wouter and three to external dependencies
     }
   },
   plugins: [react()],
