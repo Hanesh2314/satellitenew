@@ -1,54 +1,52 @@
 {
   "name": "SpaceTechHub",
-  "themes": [
-    {
-      "name": "default",
-      "label": "Default",
-      "activeColorMode": "dark",
-      "colorMode": {
-        "light": {
-          "background": "hsl(0, 0%, 100%)",
-          "foreground": "hsl(0, 0%, 3.9%)",
-          "card": "hsl(0, 0%, 100%)",
-          "card-foreground": "hsl(0, 0%, 3.9%)",
-          "popover": "hsl(0, 0%, 100%)",
-          "popover-foreground": "hsl(0, 0%, 3.9%)",
-          "primary": "hsl(43, 91%, 68%)",
-          "primary-foreground": "hsl(221, 39%, 11%)",
-          "secondary": "hsl(221, 39%, 11%)",
-          "secondary-foreground": "hsl(0, 0%, 98%)",
-          "muted": "hsl(0, 0%, 96.1%)",
-          "muted-foreground": "hsl(0, 0%, 45.1%)",
-          "accent": "hsl(0, 0%, 96.1%)",
-          "accent-foreground": "hsl(0, 0%, 9%)",
-          "destructive": "hsl(0, 84.2%, 60.2%)",
-          "destructive-foreground": "hsl(0, 0%, 98%)",
-          "border": "hsl(0, 0%, 89.8%)",
-          "input": "hsl(0, 0%, 89.8%)",
-          "ring": "hsl(0, 0%, 3.9%)"
-        },
-        "dark": {
-          "background": "hsl(221, 39%, 11%)",
-          "foreground": "hsl(0, 0%, 98%)",
-          "card": "hsl(221, 39%, 15%)",
-          "card-foreground": "hsl(0, 0%, 98%)",
-          "popover": "hsl(221, 39%, 15%)",
-          "popover-foreground": "hsl(0, 0%, 98%)",
-          "primary": "hsl(43, 91%, 68%)",
-          "primary-foreground": "hsl(221, 39%, 11%)",
-          "secondary": "hsl(221, 73%, 22%)",
-          "secondary-foreground": "hsl(0, 0%, 98%)",
-          "muted": "hsl(221, 39%, 20%)",
-          "muted-foreground": "hsl(0, 0%, 63.9%)",
-          "accent": "hsl(221, 39%, 20%)",
-          "accent-foreground": "hsl(0, 0%, 98%)",
-          "destructive": "hsl(0, 84.2%, 60.2%)",
-          "destructive-foreground": "hsl(0, 0%, 98%)",
-          "border": "hsl(221, 39%, 20%)",
-          "input": "hsl(221, 39%, 20%)",
-          "ring": "hsl(43, 91%, 68%)"
-        }
-      }
+  "variant": "default",
+  "primary": "0 94 184",
+  "cssVars": {
+    "light": {
+      "background": "255 255 255",
+      "foreground": "20 20 20",
+      "muted": "240 240 240",
+      "mutedForeground": "140 140 140",
+      "border": "240 240 240",
+      "input": "240 240 240",
+      "primary": "0 94 184",
+      "primaryForeground": "255 255 255",
+      "secondary": "44 45 61",
+      "secondaryForeground": "255 255 255",
+      "accent": "244 245 246",
+      "accentForeground": "15 15 15",
+      "destructive": "224 71 76",
+      "destructiveForeground": "255 255 255",
+      "ring": "0 94 184",
+      "radius": "0.5rem"
+    },
+    "dark": {
+      "background": "11 13 24",
+      "foreground": "255 255 255",
+      "muted": "44 45 61",
+      "mutedForeground": "150 160 175",
+      "border": "44 45 61",
+      "input": "44 45 61",
+      "primary": "0 142 255",
+      "primaryForeground": "255 255 255",
+      "secondary": "0 94 184",
+      "secondaryForeground": "255 255 255",
+      "accent": "44 45 61",
+      "accentForeground": "255 255 255",
+      "destructive": "235 87 87",
+      "destructiveForeground": "255 255 255",
+      "ring": "0 94 184",
+      "radius": "0.5rem"
     }
-  ]
+  },
+  "extend": {
+    "colors": {
+      "deep-blue": "#0b0d18",
+      "satellite-blue": "#008EFF",
+      "stellar-yellow": "#FFBD3D",
+      "space-black": "#15151F",
+      "terminal-green": "#0EF70E"
+    }
+  }
 }
