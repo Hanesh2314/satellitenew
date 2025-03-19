@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Router, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,30 +11,30 @@ import AdminPanelPage from "@/pages/AdminPanelPage";
 import NotFound from "@/pages/not-found";
 import StarBackground from "@/components/StarBackground";
 
-function Router() {
+function AppRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/confirmation" element={<ConfirmationPage />} />
-      <Route path="/departments" element={<DepartmentSelectionPage />} />
-      <Route path="/department/:id" element={<DepartmentDetailsPage />} />
-      <Route path="/apply/:department" element={<ApplicationFormPage />} />
-      <Route path="/admin" element={<AdminPanelPage />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Route path="/" component={HomePage} />
+      <Route path="/confirmation" component={ConfirmationPage} />
+      <Route path="/departments" component={DepartmentSelectionPage} />
+      <Route path="/department/:id" component={DepartmentDetailsPage} />
+      <Route path="/apply/:department" component={ApplicationFormPage} />
+      <Route path="/admin" component={AdminPanelPage} />
+      <Route path="/:rest*" component={NotFound} />
+    </>
   );
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <Router>
         <div className="min-h-screen relative">
           <StarBackground />
-          <Router />
+          <AppRoutes />
           <Toaster />
         </div>
-      </BrowserRouter>
+      </Router>
     </QueryClientProvider>
   );
 }
