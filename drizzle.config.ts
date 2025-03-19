@@ -5,6 +5,6 @@ export default {
   out: "./drizzle",
   driver: "pg",
   dbCredentials: {
-    url: process.env.DATABASE_URL || "",
+    connectionString: process.env.DATABASE_URL || "postgresql://neondb_owner:npg_bJtUQiu7XKh3@ep-restless-mode-a50f826j-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require",
   },
 } satisfies Config;
