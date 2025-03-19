@@ -3,6 +3,28 @@ import { OTPInput } from "input-otp"
 import { Dot } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+interface OTPContextType {
+  register: (index: number) => void
+  unregister: (index: number) => void
+  setCharacter: (index: number, character: string) => void
+  hasFocus: boolean
+  isComplete: boolean
+  slots: Array<{
+    char: string
+    hasFakeCaret: boolean
+    isActive: boolean
+  }>
+}
+
+const OTPInputContext = React.createContext<OTPContextType>({
+  register: () => {},
+  unregister: () => {},
+  setCharacter: () => {},
+  hasFocus: false,
+  isComplete: false,
+  slots: []
+})
+
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
   React.ComponentPropsWithoutRef<typeof OTPInput>
@@ -31,7 +53,7 @@ const InputOTPSlot = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { index: number }
 >(({ index, className, ...props }, ref) => {
-  const { register, unregister, setCharacter, hasFocus, isComplete } = React.useContext(OTPInputContext)
+  const { register, unregister, setCharacter, hasFocus, isComplete, slots } = React.useContext(OTPInputContext)
   const [isFocused, setIsFocused] = React.useState(false)
 
   React.useEffect(() => {
@@ -40,6 +62,8 @@ const InputOTPSlot = React.forwardRef<
       unregister(index)
     }
   }, [index, register, unregister])
+
+  const slot = slots[index]
 
   return (
     <div
@@ -70,7 +94,7 @@ const InputOTPSlot = React.forwardRef<
         autoComplete="one-time-code"
         aria-label={`Digit ${index + 1}`}
       />
-      {!isFocused && !isComplete && <Dot className="mx-auto h-4 w-4 text-muted-foreground" />}
+      {!isFocused && !slot?.char && <Dot className="mx-auto h-4 w-4 text-muted-foreground" />}
     </div>
   )
 })
