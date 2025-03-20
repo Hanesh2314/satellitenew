@@ -1,10 +1,12 @@
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ToastProps, ToastActionElement } from "@/types"
 
 const ToastProvider = ToastPrimitives.Provider
+
 const ToastViewport = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
@@ -35,15 +37,6 @@ const toastVariants = cva(
     },
   }
 )
-
-export interface ToastProps
-  extends React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>,
-    VariantProps<typeof toastVariants> {}
-
-export interface ToastActionElement {
-  altText?: string
-  action: () => void
-}
 
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
@@ -115,7 +108,6 @@ const ToastDescription = React.forwardRef<
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
 export {
-  type ToastActionElement,
   ToastProvider,
   ToastViewport,
   Toast,
@@ -123,13 +115,4 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
-}
-
-// Add toast utility function export
-export const toast = {
-  // Basic toast function
-  default: (message: string) => {
-    // Implement toast functionality
-  },
-  // Add other toast variants as needed
 }
