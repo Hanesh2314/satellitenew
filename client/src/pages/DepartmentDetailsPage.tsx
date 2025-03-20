@@ -4,7 +4,6 @@ import { getDepartmentById } from "@/lib/satelliteUtils";
 import { Button } from "@/components/ui/button";
 import DepartmentDetails from "@/components/DepartmentDetails";
 import { ArrowLeft } from "lucide-react";
-import { Department, DepartmentDetail } from "@/types";
 
 interface RouteParams {
   id: string;
