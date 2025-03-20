@@ -20,10 +20,10 @@ function AppRoutes() {
         {(params) => <DepartmentSelectionPage {...params} />}
       </Route>
       <Route path="/department/:id">
-        {(params) => <DepartmentDetailsPage {...params} />}
+        {(params) => <DepartmentDetailsPage id={params.id} />}
       </Route>
       <Route path="/apply/:department">
-        {(params) => <ApplicationFormPage {...params} />}
+        {(params) => <ApplicationFormPage department={params.department} />}
       </Route>
       <Route path="/admin" component={AdminPanelPage} />
       <Route path="/:rest*" component={NotFound} />
