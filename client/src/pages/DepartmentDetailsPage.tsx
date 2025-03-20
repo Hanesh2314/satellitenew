@@ -2,11 +2,16 @@ import { useParams, useLocation } from "wouter";
 import { getDepartmentDetails } from "@/lib/departmentDetails";
 import { getDepartmentById } from "@/lib/satelliteUtils";
 import { Button } from "@/components/ui/button";
-import DepartmentDetails, { DepartmentDetailsProps } from "@/components/DepartmentDetails";
+import DepartmentDetails from "@/components/DepartmentDetails";
 import { ArrowLeft } from "lucide-react";
+import { Department, DepartmentDetail } from "@/types";
+
+interface RouteParams {
+  id: string;
+}
 
 const DepartmentDetailsPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<RouteParams>();
   const [, navigate] = useLocation();
   
   const departmentDetails = id ? getDepartmentDetails(id) : null;
@@ -30,12 +35,6 @@ const DepartmentDetailsPage = () => {
     );
   }
 
-  const detailsProps: DepartmentDetailsProps = {
-    details: departmentDetails,
-    basicInfo: departmentBasic,
-    onApply: handleApply
-  };
-
   return (
     <div className="min-h-screen bg-stellar-dark text-white">
       <div className="container mx-auto px-4 py-10">
@@ -48,7 +47,11 @@ const DepartmentDetailsPage = () => {
           Back to Departments
         </Button>
 
-        <DepartmentDetails {...detailsProps} />
+        <DepartmentDetails
+          details={departmentDetails}
+          basicInfo={departmentBasic}
+          onApply={handleApply}
+        />
       </div>
     </div>
   );
