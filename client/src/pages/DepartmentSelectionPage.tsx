@@ -4,18 +4,12 @@ import InteractiveSatellite from "@/components/InteractiveSatellite";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-// Define the correct prop types for the component
-interface Props {
-  onSelectDepartment?: (departmentId: string, departmentName: string) => void;
-}
-
-export const DepartmentSelectionPage: React.FC<Props> = ({ onSelectDepartment }) => {
+const DepartmentSelectionPage = () => {
   const [, navigate] = useLocation();
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
 
   const handleDepartmentSelect = (departmentId: string, departmentName: string) => {
     setSelectedDepartment(departmentId);
-    onSelectDepartment?.(departmentId, departmentName);
   };
 
   const handleContinue = () => {
