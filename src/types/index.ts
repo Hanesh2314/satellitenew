@@ -1,22 +1,17 @@
-// Add these to your existing types/index.ts
-export interface ThemeContextType {
-  theme: 'light' | 'dark';
-  setTheme: (theme: 'light' | 'dark') => void;
+// Add to your existing types/index.ts
+export interface ApplicationDetails {
+  id: string;
+  name: string;
+  contactInfo: string;
+  department: string;
+  experience?: string;
+  resumeUrl?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  submittedAt: Date;
 }
 
-export interface AuthContextType {
-  isAuthenticated: boolean;
-  user: {
-    id: string;
-    name: string;
-    role: 'user' | 'admin';
-  } | null;
-  login: (credentials: { email: string; password: string }) => Promise<void>;
-  logout: () => void;
-}
-
-export interface QueryContextType {
+export interface AdminDashboardState {
+  applications: ApplicationDetails[];
   isLoading: boolean;
   error: Error | null;
-  data: unknown;
 }
