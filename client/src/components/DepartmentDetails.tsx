@@ -1,21 +1,8 @@
+import React from 'react';
 import { Button } from "@/components/ui/button";
+import { Department, DepartmentDetail } from "@/types";
 
-// Define interfaces for the department types
-interface Department {
-  id: string;
-  name: string;
-  description?: string;
-}
-
-interface DepartmentDetail {
-  title: string;
-  description: string;
-  requirements?: string[];
-  responsibilities?: string[];
-}
-
-// Define props interface for the component
-export interface DepartmentDetailsProps {
+interface DepartmentDetailsProps {
   details: DepartmentDetail;
   basicInfo: Department;
   onApply: () => void;
