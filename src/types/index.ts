@@ -1,42 +1,22 @@
-import { ComponentProps } from 'react';
-import * as ToastPrimitives from "@radix-ui/react-toast";
-
-// Base Types
-export interface Department {
-  id: string;
-  name: string;
-  position: { x: number; y: number; z: number };
-  color: number;
+// Add these to your existing types/index.ts
+export interface ThemeContextType {
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
 }
 
-// Component Props
-export interface InteractiveSatelliteProps {
-  onSelectDepartment: (departmentId: string, departmentName: string) => void;
+export interface AuthContextType {
+  isAuthenticated: boolean;
+  user: {
+    id: string;
+    name: string;
+    role: 'user' | 'admin';
+  } | null;
+  login: (credentials: { email: string; password: string }) => Promise<void>;
+  logout: () => void;
 }
 
-// Toast Types
-export interface ToastProps extends ComponentProps<typeof ToastPrimitives.Root> {
-  variant?: 'default' | 'destructive';
-}
-
-export interface ToastActionElement {
-  altText?: string;
-  action: () => void;
-}
-
-export type ToasterToast = ToastProps & {
-  id: string;
-  title?: string;
-  description?: string;
-  action?: ToastActionElement;
-}
-
-export interface State {
-  toasts: ToasterToast[];
-}
-
-// Route Types
-export interface RouteParams {
-  id?: string;
-  department?: string;
+export interface QueryContextType {
+  isLoading: boolean;
+  error: Error | null;
+  data: unknown;
 }
