@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams, useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { getDepartmentById } from "@/lib/satelliteUtils";
 import { useToast } from "@/hooks/use-toast";
+import { ApplicationFormValues } from "@/types";
+
+interface RouteParams {
+  department: string;
+}
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -29,21 +33,19 @@ const formSchema = z.object({
   resumeFileName: z.string().optional()
 });
 
-type FormValues = z.infer<typeof formSchema>;
-
 const ApplicationFormPage = () => {
-  const { department } = useParams<{ department: string }>();
+  const { department } = useParams<RouteParams>();
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
-  const form = useForm<FormValues>({
+  const form = useForm<ApplicationFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       department: department || "",
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: ApplicationFormValues) => {
     try {
       // Your form submission logic here
       toast({
@@ -59,8 +61,6 @@ const ApplicationFormPage = () => {
       });
     }
   };
-
-  // Rest of your component code...
 
   return (
     <Form {...form}>
