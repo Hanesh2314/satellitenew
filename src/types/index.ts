@@ -1,50 +1,46 @@
-// Add these to your existing types/index.ts
-
-// Route Parameters
-export interface RouteParams {
-  id?: string;
-  department?: string;
-  page?: string;
+// Three.js related types
+export interface ThreeJSScene {
+  scene: THREE.Scene;
+  camera: THREE.PerspectiveCamera;
+  renderer: THREE.WebGLRenderer;
 }
 
-// Auth Types
-export interface AdminUser {
-  id: string;
-  username: string;
-  role: 'admin';
-  permissions: string[];
+export interface ModelProperties {
+  position: THREE.Vector3;
+  rotation: THREE.Euler;
+  scale: THREE.Vector3;
 }
 
-export interface LoginCredentials {
-  username: string;
-  password: string;
+export interface LightSetup {
+  ambient: THREE.AmbientLight;
+  point: THREE.PointLight;
+  directional: THREE.DirectionalLight;
 }
 
-// Content Management Types
-export interface ContentSection {
-  id: string;
-  title: string;
-  content: string;
-  lastUpdated: Date;
+// Utility types
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+export type AsyncFunction<T = void> = () => Promise<T>;
+
+export type ErrorWithMessage = {
+  message: string;
+  code?: string;
+  status?: number;
+};
+
+// Event types
+export interface CustomEvent<T = any> {
+  type: string;
+  payload: T;
+  timestamp: number;
 }
 
-// Navigation Types
-export interface NavItem {
-  label: string;
-  href: string;
-  icon?: React.ComponentType;
-  children?: NavItem[];
-}
+export type EventHandler<T = any> = (event: CustomEvent<T>) => void;
 
-// Form Types
-export interface FormField {
-  name: string;
-  label: string;
-  type: 'text' | 'email' | 'password' | 'textarea' | 'select';
-  options?: { label: string; value: string }[];
-  validation?: {
-    required?: boolean;
-    minLength?: number;
-    pattern?: RegExp;
-  };
+export interface EventBus {
+  on: (event: string, handler: EventHandler) => void;
+  off: (event: string, handler: EventHandler) => void;
+  emit: <T>(event: string, payload: T) => void;
 }
