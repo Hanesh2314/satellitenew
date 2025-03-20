@@ -1,4 +1,33 @@
-// Three.js related types
+import { ComponentProps } from 'react';
+import * as THREE from 'three';
+import * as ToastPrimitives from '@radix-ui/react-toast';
+
+// Toast Types
+export interface ToastProps extends ComponentProps<typeof ToastPrimitives.Root> {
+  variant?: 'default' | 'destructive';
+}
+
+export interface ToastActionElement {
+  altText?: string;
+  action: () => void;
+}
+
+export type ToasterToast = ToastProps & {
+  id: string;
+  title?: string;
+  description?: string;
+  action?: ToastActionElement;
+}
+
+export interface State {
+  toasts: ToasterToast[];
+}
+
+export interface DepartmentSelectionProps {
+  onSelectDepartment: (departmentId: string, departmentName: string) => void;
+}
+
+// Your existing Three.js related types
 export interface ThreeJSScene {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
@@ -17,7 +46,7 @@ export interface LightSetup {
   directional: THREE.DirectionalLight;
 }
 
-// Utility types
+// Your existing Utility types
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
@@ -30,7 +59,7 @@ export type ErrorWithMessage = {
   status?: number;
 };
 
-// Event types
+// Your existing Event types
 export interface CustomEvent<T = any> {
   type: string;
   payload: T;
