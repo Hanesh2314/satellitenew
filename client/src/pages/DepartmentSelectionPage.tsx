@@ -4,17 +4,23 @@ import InteractiveSatellite from "@/components/InteractiveSatellite";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
+// Remove the optional flag from onSelectDepartment
 interface DepartmentSelectionProps {
-  onSelectDepartment?: (departmentId: string, departmentName: string) => void;
+  onSelectDepartment: (departmentId: string, departmentName: string) => void;
 }
 
-export function DepartmentSelectionPage({ onSelectDepartment }: DepartmentSelectionProps) {
+// Create a default props object
+const defaultProps: DepartmentSelectionProps = {
+  onSelectDepartment: () => {} // No-op default function
+};
+
+const DepartmentSelectionPage = (props: DepartmentSelectionProps = defaultProps) => {
   const [, navigate] = useLocation();
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
 
   const handleDepartmentSelect = (departmentId: string, departmentName: string) => {
     setSelectedDepartment(departmentId);
-    onSelectDepartment?.(departmentId, departmentName);
+    props.onSelectDepartment(departmentId, departmentName);
   };
 
   const handleContinue = () => {
@@ -50,6 +56,6 @@ export function DepartmentSelectionPage({ onSelectDepartment }: DepartmentSelect
       </div>
     </div>
   );
-}
+};
 
 export default DepartmentSelectionPage;
